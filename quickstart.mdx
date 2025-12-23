@@ -1,0 +1,159 @@
+---
+title: Quickstart Guide
+description: Get up and running with Jiulin Hu in minutes. This guide covers initial setup and your first test execution.
+---
+
+## Prerequisites
+
+<Callout kind="info">
+
+Before starting, ensure you have:
+
+- Node.js `{>=18.0.0}`
+- npm or yarn package manager
+- A free account at `https://dashboard.example.com`
+
+</Callout>
+
+## Create Your Account and Log In
+
+Sign up at `https://dashboard.example.com/signup` to get your `{API_KEY}`.
+
+<Steps>
+  <Step title="Sign Up" icon="user-plus">
+    Visit `https://dashboard.example.com/signup` and create an account with your email.
+  </Step>
+  <Step title="Verify Email" icon="mail">
+    Check your inbox and click the verification link.
+  </Step>
+  <Step title="Generate API Key" icon="key">
+    Go to Account Settings > API Keys and copy your `{API_KEY}`.
+  </Step>
+</Steps>
+
+## Install the Jiulin Hu CLI
+
+Install the CLI globally for easy access.
+
+<Tabs>
+  <Tab title="npm" icon="package">
+````bash
+npm install -g @jiulin-hu/cli
+````
+  </Tab>
+  <Tab title="yarn" icon="package">
+````bash
+yarn global add @jiulin-hu/cli
+````
+  </Tab>
+  <Tab title="npx (no install)" icon="terminal">
+    Use without global installation:
+````bash
+npx @jiulin-hu/cli@latest --version
+````
+  </Tab>
+</Tabs>
+
+Verify installation:
+````bash
+jiulin --version
+````
+
+## Configure Your Project
+
+Initialize a new project and set your `{API_KEY}`.
+
+<Steps>
+  <Step title="Initialize Project" icon="folder-plus">
+    Create a test directory and run:
+````bash
+jiulin init my-first-test
+cd my-first-test
+````
+  </Step>
+  <Step title="Set API Key" icon="settings">
+    Add your key to `.env`:
+````bash
+echo "JIULIN_API_KEY=your-api-key-here" > .env
+````
+  </Step>
+</Steps>
+
+## Run Your First Test Case
+
+Create and execute a simple test.
+
+<CodeGroup tabs="JavaScript,TypeScript">
+````javascript
+// tests/example.test.js
+const { test, expect } = require('@jiulin-hu/testing');
+
+test('basic assertion', async () => {
+  const result = await fetch('https://api.example.com/health');
+  expect(result.status).toBe(200);
+});
+````
+````typescript
+// tests/example.test.ts
+import { test, expect } from '@jiulin-hu/testing';
+
+test('basic assertion', async () => {
+  const result = await fetch('https://api.example.com/health');
+  expect(result.status).toBe(200);
+});
+````
+</CodeGroup>
+
+Execute it:
+````bash
+jiulin test run
+````
+
+You see output like:
+```
+✓ basic assertion (52ms)
+1 passed (52ms)
+```
+
+## Basic Command-Line Usage
+
+Common commands:
+
+| Command | Description |
+|---------|-------------|
+| `jiulin init <name>` | Initialize new project |
+| `jiulin test run` | Run all tests |
+| `jiulin test watch` | Run in watch mode `{<Ctrl+C>}` to stop |
+| `jiulin report` | Generate HTML report |
+
+## Troubleshooting Common Issues
+
+<ExpandableGroup>
+  <Expandable title="CLI not found" default-open="true">
+    Ensure the CLI is in your PATH. Restart your terminal after global install, or use `npx`.
+  </Expandable>
+  <Expandable title="Invalid API Key">
+    Regenerate your `{API_KEY}` at `https://dashboard.example.com/settings/api-keys`. Check `.env` file permissions.
+  </Expandable>
+  <Expandable title="Network Errors">
+    Verify firewall allows outbound to `https://api.example.com`. Test with `curl https://api.example.com/health`.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="tip">
+
+Next, explore advanced features. See [Introduction](/introduction) for concepts or [Authentication](/authentication) for secure setups.
+
+</Callout>
+
+<Columns cols={3}>
+  <Card title="Guides" icon="book-open" href="/introduction">
+    Core concepts and best practices.
+  </Card>
+  <Card title="API Reference" icon="code" href="/authentication">
+    Secure your tests with auth.
+  </Card>
+  <Card title="Changelog" icon="git-branch" href="/changelog">
+    Latest updates and fixes.
+  </Card>
+</Columns>

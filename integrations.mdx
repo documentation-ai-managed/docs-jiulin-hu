@@ -1,0 +1,160 @@
+---
+title: Integrations and Extensions
+description: Connect Jiulin Hu with third-party tools and services to enhance your testing ecosystem and automate workflows.
+---
+
+## Overview
+
+Jiulin Hu integrates seamlessly with popular CI/CD tools, version control systems, and notification services. You can set up webhooks for real-time updates, connect via API to external services, and extend core functionality through plugins. These integrations help you automate testing workflows, trigger tests on code commits, and receive instant notifications on test results.
+
+<Callout kind="tip">
+  Start with official plugins for Jenkins and GitHub to get up and running quickly.
+</Callout>
+
+## Popular Integrations
+
+Explore ready-to-use integrations that supercharge your Jiulin Hu setup.
+
+<Columns cols={3}>
+  <Card title="Jenkins" icon="activity" href="https://plugins.jenkins.io/jiulin-hu">
+    Automate test runs in your CI/CD pipelines. Trigger Jiulin Hu tests on every build and get detailed reports.
+  </Card>
+  <Card title="GitHub Actions" icon="github" href="https://github.com/marketplace/actions/jiulin-hu-testing">
+    Integrate directly into your GitHub workflows. Run tests on pull requests and post results as comments.
+  </Card>
+  <Card title="Slack" icon="message-circle" href="/configuration/notifications">
+    Receive real-time test notifications in your Slack channels for immediate team awareness.
+  </Card>
+</Columns>
+
+## Webhook Setup
+
+Set up webhooks to receive Jiulin Hu events in external services like Discord or custom dashboards.
+
+<Steps>
+  <Step title="Create Webhook" icon="plus">
+    Navigate to your Jiulin Hu dashboard at `https://dashboard.example.com/webhooks`.
+
+    Generate a new webhook URL using this endpoint:
+
+    <CodeGroup tabs="cURL,JavaScript">
+    ````bash
+    curl -X POST https://api.example.com/v1/webhooks \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"events": ["test.completed", "test.failed"], "url": "https://your-webhook-url.com/webhook"}'
+    ````
+
+    ````javascript
+    const response = await fetch('https://api.example.com/v1/webhooks', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        events: ['test.completed', 'test.failed'],
+        url: 'https://your-webhook-url.com/webhook'
+      })
+    });
+    ````
+    </CodeGroup>
+  </Step>
+
+  <Step title="Configure Events" icon="settings">
+    Select events like `test.completed` or `test.failed`. Jiulin Hu sends payloads with test results, including pass/fail status and logs.
+  </Step>
+
+  <Step title="Test Delivery" icon="zap">
+    Trigger a test run and verify the webhook receives data. Check headers for `X-JiulinHu-Signature` to validate authenticity.
+  </Step>
+</Steps>
+
+## API Connections
+
+Connect Jiulin Hu to any service supporting HTTP webhooks or API calls. Use the REST API for custom integrations.
+
+<ParamField path="webhook_id" param-type="string" required="true">
+  Unique identifier for the webhook.
+</ParamField>
+
+<ParamField header="Authorization" param-type="string" required="true">
+  Bearer token: `Bearer YOUR_API_KEY`.
+</ParamField>
+
+Example payload received on webhook events:
+
+```json
+{
+  "event": "test.completed",
+  "test_id": "tst_abc123",
+  "status": "passed",
+  "timestamp": "2024-10-15T12:00:00Z",
+  "results": {
+    "duration": 45,
+    "coverage": 95
+  }
+}
+```
+
+## Extending with Plugins
+
+Build or install plugins to add custom test runners or reporters.
+
+<Tabs>
+  <Tab title="Node.js Plugin" icon="nodejs">
+    Create a plugin using the Jiulin Hu SDK.
+
+    ````javascript
+    const JiulinHu = require('jiulin-hu-sdk');
+
+    class CustomPlugin {
+      async run(testSuite) {
+        // Custom logic here
+        return await JiulinHu.execute(testSuite);
+      }
+    }
+
+    module.exports = CustomPlugin;
+    ````
+  </Tab>
+
+  <Tab title="Python Plugin" icon="python">
+    Develop plugins in Python for data-heavy tests.
+
+    ````python
+    import jiulin_hu
+
+    class CustomReporter:
+        def report(self, results):
+            # Process results
+            jiulin_hu.send_metrics(results)
+            return "success"
+    ````
+  </Tab>
+</Tabs>
+
+## Best Practices
+
+Follow these guidelines to maintain secure and efficient integrations.
+
+<Expandable title="Secure Your Integrations" default-open="true">
+  Always validate webhook signatures using the `X-JiulinHu-Signature` header. Store secrets securely and rotate API keys regularly. Use environment variables for production setups:
+
+  ```bash
+  export JIULIN_HU_API_KEY=your-api-key-here
+  ```
+</Expandable>
+
+<Callout kind="alert">
+  Never expose webhook URLs or API keys in public repositories. Use GitHub Secrets for CI/CD integrations.
+</Callout>
+
+<Columns cols={2}>
+  <Card title="Next Steps" icon="arrow-right" href="/quickstart">
+    Build your first integration.
+  </Card>
+  <Card title="API Reference" icon="book-open" href="/authentication">
+    Full API documentation.
+  </Card>
+</Columns>

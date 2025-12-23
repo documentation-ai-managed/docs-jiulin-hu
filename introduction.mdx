@@ -1,0 +1,106 @@
+---
+title: Introduction to Jiulin Hu
+description: Discover Jiulin Hu, a versatile testing tool designed for efficient development workflows. Learn about its core features and how it can streamline your testing processes.
+---
+
+## Overview
+
+Jiulin Hu empowers you to automate and optimize your testing workflows with a lightweight, extensible tool. You integrate it seamlessly into your CI/CD pipelines or local development environments to run comprehensive tests, generate reports, and identify issues early. Whether you build web apps, APIs, or mobile services, Jiulin Hu reduces debugging time and boosts reliability.
+
+<Callout kind="info">
+Jiulin Hu supports multiple languages and frameworks out of the box, making it ideal for diverse teams.
+</Callout>
+
+## Key Features
+
+Jiulin Hu stands out with its powerful capabilities designed for modern development.
+
+<Columns cols={3}>
+  <Card title="Fast Execution" icon="zap" href="#quick-start">
+    Run tests in parallel across environments, achieving `<50ms` average setup time per suite.
+  </Card>
+  <Card title="Detailed Reporting" icon="bar-chart-3" href="#system-requirements">
+    Generate interactive HTML reports with coverage metrics and screenshots on failures.
+  </Card>
+  <Card title="Framework Agnostic" icon="layers" href="/quickstart">
+    Works with Jest, Mocha, Cypress, and more—no vendor lock-in.
+  </Card>
+</Columns>
+
+## Who Should Use Jiulin Hu
+
+You benefit from Jiulin Hu if you are a developer seeking efficient testing, a QA engineer automating workflows, or a DevOps professional integrating tests into pipelines. Solo developers appreciate its zero-config setup, while enterprises value custom plugins and scalability.
+
+<Callout kind="tip">
+Start with the free tier for personal projects; upgrade for team collaboration features.
+</Callout>
+
+## System Requirements
+
+Jiulin Hu runs on most modern systems with minimal footprint.
+
+| Requirement      | Minimum                  | Recommended             |
+|------------------|--------------------------|-------------------------|
+| Node.js          | `>=18.0.0`              | `>=20.0.0`             |
+| Memory           | `2GB`                    | `8GB+`                 |
+| Disk Space       | `500MB`                  | `2GB+`                 |
+| OS               | macOS, Linux, Windows    | macOS Ventura+, Ubuntu 22.04+ |
+
+## Quick Start
+
+Get up and running in minutes.
+
+<Steps>
+  <Step title="Install" icon="download">
+    Use your preferred package manager.
+
+    <CodeGroup tabs="npm,yarn,pnpm">
+      ```bash
+      npm install -g jiulin-hu
+      ```
+      ```bash
+      yarn global add jiulin-hu
+      ```
+      ```bash
+      pnpm add -g jiulin-hu
+      ```
+    </CodeGroup>
+  </Step>
+  <Step title="Initialize" icon="settings">
+    Create a config file in your project root.
+
+````json
+{
+  "testDir": "tests/",
+  "reporter": "html",
+  "parallel": true
+}
+````
+  </Step>
+  <Step title="Run Tests" icon="play">
+    Execute your first test suite.
+
+    ```bash
+    jiulin-hu run
+    ```
+  </Step>
+</Steps>
+
+## Next Steps
+
+Dive deeper into Jiulin Hu.
+
+<Columns cols={2}>
+  <Card title="Quickstart Guide" icon="book-open" href="/quickstart">
+    Detailed setup and your first full test run.
+  </Card>
+  <Card title="Authentication" icon="lock" href="/authentication">
+    Secure API integrations and token management.
+  </Card>
+  <Card title="Configuration" icon="sliders" href="/configuration">
+    Advanced options and custom plugins.
+  </Card>
+  <Card title="Changelog" icon="git-branch" href="/changelog">
+    Latest updates and improvements.
+  </Card>
+</Columns>
